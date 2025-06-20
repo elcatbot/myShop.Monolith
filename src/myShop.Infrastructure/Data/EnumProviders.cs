@@ -1,4 +1,4 @@
-namespace myShop.Products.Data;
+namespace myShop.Infrastructure.Data;
 
 public enum EnumProviders
 {

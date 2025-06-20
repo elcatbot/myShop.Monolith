@@ -14,7 +14,7 @@ public class Product(string Name, string Description, decimal Price, string Prod
     public int MaxStockThreshold { get; private set; }
     public int OverstockUnits { get; private set; }
 
-    public void UpdatePoductDetails(string name, string description, decimal price, string? productImageUrl)
+    public void UpdateProductDetails(string name, string description, decimal price, string? productImageUrl)
     {
         Name = name;
         Description = description;
@@ -26,15 +26,14 @@ public class Product(string Name, string Description, decimal Price, string Prod
         }
     }
 
-    public void UpdatePoductBrand(int brandId)
+    public void UpdateProductBrand(int brandId)
     {
         BrandId = brandId;
     }
 
-    public bool AddStock(int quantity)
+    public void AddStock(int quantity)
     {
         int newStock = AvailableStock + quantity;
-
         if (newStock > MaxStockThreshold)
         {
             AvailableStock += newStock - MaxStockThreshold;
@@ -44,27 +43,18 @@ public class Product(string Name, string Description, decimal Price, string Prod
         {
             AvailableStock = newStock;
         }
-
-        return true;
-
     }
 
-    public bool RemoveStock(int quantity)
+    public void RemoveStock(int quantity)
     {
         if (AvailableStock == 0)
         {
             throw new CatalogDomainException($"Empty stock, product {Name} is sold out");
         }
-
         if (quantity <= 0)
         {
             throw new CatalogDomainException($"Quantity must be greater than zero");
         }
-
         AvailableStock -= quantity;
-
-        return true;
     }
-    
-
 }

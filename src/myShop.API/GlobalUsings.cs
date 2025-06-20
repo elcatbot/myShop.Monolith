@@ -1,0 +1,9 @@
+global using Microsoft.AspNetCore.Mvc;
+global using myShop.Core.Entites;
+global using myShop.Api.DTOs;
+global using myShop.Api.Services;
+global using System.Net;
+global using Microsoft.EntityFrameworkCore;
+global using myShop.Core.Interfaces;
+global using myShop.Infrastructure.Data;
+global using myShop.Api.Extensions;

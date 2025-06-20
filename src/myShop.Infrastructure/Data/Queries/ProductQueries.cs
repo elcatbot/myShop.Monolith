@@ -1,4 +1,3 @@
-
 namespace myShop.Infrastructure.Data.Queries;
 
 public class ProductQueries(ShopContext context) : IProductQueries
@@ -14,7 +13,7 @@ public class ProductQueries(ShopContext context) : IProductQueries
     public async Task<IEnumerable<Product>> GetProductsByNameAsync(string name, int pageSize = 10, int pageIndex = 0)
     {
         IQueryable<Product> query = GetPaginatedQuery(pageSize , pageIndex);
-        query.Where(p => p.Name == name);
+        query.Where(p => p.Name!.Contains(name));
 
         return await query.ToListAsync();
     }
