@@ -8,7 +8,7 @@ public static class DIServices
     {
         builder.Services.AddDataBases(builder.Configuration);
 
-        builder.Services.AddScoped<ProductFacadeServices>();
+        builder.Services.AddScoped<IProductFacadeServices, ProductFacadeServices>();
 
     }
 

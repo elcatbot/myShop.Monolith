@@ -2,7 +2,7 @@ namespace myShop.Api.Controllers;
 
 [ApiController]
 [Route("api/[Controller]")]
-public class ProductController(ProductFacadeServices Services) : ControllerBase
+public class ProductController(IProductFacadeServices Services) : ControllerBase
 {
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<ProductDto>), (int)HttpStatusCode.OK)]

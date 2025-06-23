@@ -1,39 +1,37 @@
+using System.Linq.Expressions;
+
 namespace myShop.Infrastructure.Data.Queries;
 
 public class ProductQueries(ShopContext context) : IProductQueries
 {
-    public async Task<Product> GetProductByIdAsync(int id) => (await context.Products.FindAsync(id))!;
+    IQueryable<Product>? _query;
+
+    public async Task<Product> GetProductByIdAsync(int id) => (await context.Products.FirstOrDefaultAsync(p => p.Id.Equals(id)))!;
 
     public async Task<IEnumerable<Product>> GetProductsAsync(int pageSize = 10, int pageIndex = 0)
     {
-        IQueryable<Product> query = GetPaginatedQuery(pageSize , pageIndex);
-        return await query.ToListAsync();
+        _query = context.Products;
+        _query = GetPaginated_query( _query, pageSize, pageIndex);
+        return await _query.ToListAsync();
     }
 
     public async Task<IEnumerable<Product>> GetProductsByNameAsync(string name, int pageSize = 10, int pageIndex = 0)
     {
-        IQueryable<Product> query = GetPaginatedQuery(pageSize , pageIndex);
-        query.Where(p => p.Name!.Contains(name));
-
-        return await query.ToListAsync();
+        _query = context.Products.Where(p => p.Name!.ToLower()!.Contains(name.ToLower()));
+        _query = GetPaginated_query( _query, pageSize, pageIndex);
+        return await _query.ToListAsync();
     }
 
-    public async Task<IEnumerable<Product>> GetProductByBrandAsync(int brandId, int pageSize = 10, int pageIndex = 0)
+    public async Task<IEnumerable<Product>> GetProductsByBrandIdAsync(int brandId, int pageSize = 10, int pageIndex = 0)
     {
-        IQueryable<Product> query = GetPaginatedQuery(pageSize , pageIndex);
-        query.Where(p => p.BrandId == brandId);
-
-        return await query.ToListAsync();
+        _query = context.Products.Where(p => p.BrandId == brandId);
+        _query = GetPaginated_query(_query, pageSize, pageIndex);
+        return await _query.ToListAsync();
     }
 
-    private IQueryable<Product> GetPaginatedQuery(int pageSize = 10, int pageIndex = 0)
-    {
-        IQueryable<Product> query =
-            context.Products
-                .OrderBy(p => p.Name)
-                .Skip(pageSize * pageIndex)
-                .Take(pageSize);
-
-        return query;
-    }
+    private IQueryable<Product> GetPaginated_query(IQueryable<Product> _query, int pageSize = 10, int pageIndex = 0) =>
+        _query
+            .OrderBy(p => p.Name)
+            .Skip(pageSize * pageIndex)
+            .Take(pageSize);
 }

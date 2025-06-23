@@ -1,7 +1,7 @@
 namespace myShop.Core.Entites;
 
 public class Product(string Name, string Description, decimal Price, string ProductImageUrl, int BrandId) : BaseEntity, IAggregateRoot
-{
+{    
     [Required]
     public string? Name { get; private set; } = Name;
 
