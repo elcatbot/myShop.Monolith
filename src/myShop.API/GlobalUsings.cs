@@ -7,3 +7,7 @@ global using Microsoft.EntityFrameworkCore;
 global using myShop.Core.Interfaces;
 global using myShop.Infrastructure.Data;
 global using myShop.Api.Extensions;
+global using System.Reflection;
+global using Microsoft.OpenApi.Models;
+global using myShop.Infrastructure.Data.Queries;
+global using System.ComponentModel.DataAnnotations;
