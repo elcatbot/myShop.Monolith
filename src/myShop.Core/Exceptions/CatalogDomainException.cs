@@ -1,8 +1,8 @@
 namespace myShop.Core.Exceptions;
 
-public class CatalogDomainException : Exception
+public class ProductDomainException : Exception
 {
-    public CatalogDomainException() { }
-    public CatalogDomainException(string message) : base(message) { }
-    public CatalogDomainException(string message, Exception innerException) : base(message, innerException) { }
+    public ProductDomainException() { }
+    public ProductDomainException(string message) : base(message) { }
+    public ProductDomainException(string message, Exception innerException) : base(message, innerException) { }
 }

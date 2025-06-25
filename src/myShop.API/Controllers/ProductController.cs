@@ -63,7 +63,7 @@ public class ProductController(IProductFacadeServices Services) : ControllerBase
         }
 
         product.UpdateProductDetails(productDto.Name!, productDto.Description!, productDto.Price, productDto.ProductImageUrl);
-        product.UpdateProductBrand(productDto.BrandId!);
+        product.UpdateProductBrandId(productDto.BrandId!);
 
         await Services.Repository.UpdateAsync(product);
         return NoContent();
